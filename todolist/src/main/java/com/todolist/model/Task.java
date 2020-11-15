@@ -27,8 +27,21 @@ public class Task {
 	@Column(name = "date")
 	private Date date;
 	
-	@Column(name = "check")
+	@Column(name = "ischeck")
 	private Boolean check;
+
+	public Task() {}
+	public Task(String description, int userId) {
+		// TODO Auto-generated constructor stub
+		setDescription(description);
+		setUserId(userId);
+	}
+	public Task(String description,int taskId, Boolean check) {
+		// TODO Auto-generated constructor stub
+		setDescription(description);
+		setTaskId(taskId);
+		setCheck(check);
+	}
 
 	public int getTaskId() {
 		return taskId;

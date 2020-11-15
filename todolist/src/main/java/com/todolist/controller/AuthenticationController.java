@@ -38,12 +38,11 @@ public class AuthenticationController {
 	@RequestMapping(path = "/authentication", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken( @RequestBody UserSigninView userSigninView) throws Exception {
 		// Authenticate the user throws exception if not able to to authenticate
-		System.out.println(BCrypt.hashpw(userSigninView.getPassword(), BCrypt.gensalt()));
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(userSigninView.getUserName(), BCrypt.hashpw(userSigninView.getPassword(), BCrypt.gensalt())));
+					new UsernamePasswordAuthenticationToken(userSigninView.getUserName(), userSigninView.getPassword()));
 		} catch (BadCredentialsException ex) {
-			throw new Exception("Incorrect username and password");
+			return ResponseEntity.status(501).body("Incorrect Password");
 		}
 		final UserDetails userDetails = userdetailsservice.loadUserByUsername(userSigninView.getUserName());
 		final String jwt = Jwttokenutil.GenerateToken(userDetails);
