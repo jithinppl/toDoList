@@ -13,7 +13,7 @@ public class CommandMain {
 	@Autowired
 	TaskService taskservice;
 	
-	public Boolean AddTask(String description, int userId) {
+	public Boolean AddTaskMain(String description, int userId) {
 		
 		Task task=new Task(description,userId);
 		Command addTask=new AddTaskCommand(taskservice,task);
@@ -21,13 +21,13 @@ public class CommandMain {
 		return commandswitch.commandService();
 	}
 	
-	public Boolean RemoveTask(int taskId) {
+	public Boolean RemoveTaskMain(int taskId) {
 		Command removeTask=new RemoveTaskCommand(taskservice,taskId);
 		commandswitch.setCommand(removeTask);
 		return commandswitch.commandService();
 	}
 	
-	public Boolean UpdateTask(String description, int taskId, Boolean isCheck) {
+	public Boolean UpdateTaskMain(String description, int taskId, Boolean isCheck) {
 		Task task=new Task(description,taskId,isCheck);
 		Command updateTask=new UpdateTaskCommand(taskservice,task);
 		commandswitch.setCommand(updateTask);

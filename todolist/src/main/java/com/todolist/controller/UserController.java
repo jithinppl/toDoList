@@ -1,6 +1,5 @@
 package com.todolist.controller;
 
-//import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +22,13 @@ public class UserController {
 	@Autowired
 	UserService userService ;
 	
-	UserView userView;
-	/*@GetMapping("/all")
-	public List<User> Userlogin() {
-	List<User> l1=user_service.getAll();
-	return l1;
-	}*/
+
 	@RequestMapping(path="/signup", method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody UserSignupView userSignupView) {
 		 UserView userView = userService.addUser(userSignupView);
 		 if(userView==null)
 		 {
-			 return ResponseEntity.ok().body("Invalid Email/User already exist");
+			 return ResponseEntity.ok().body("User already exist");
 		 }
          return ResponseEntity.ok().body("Successfully Registered");
 		

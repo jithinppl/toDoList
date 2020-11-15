@@ -23,18 +23,7 @@ public class AuthenticationService {
 	@Autowired
     private UserRepository userRepository;
 	
-	
 
-	/*public String authenticateUser(UserSigninView userSigninView) {
-		// TODO Auto-generated method stub
-		
-		int result=userRepository.findbyEmail(userSigninView.getUserName(),BCrypt.hashpw(userSigninView.getPassword(), BCrypt.gensalt()));
-		if (result==1)
-			return "Success";
-		else 
-			return "Invalid Credentials";
-		
-	}*/
 
 	public User GetUserbyname(String userName)
 	{
@@ -43,7 +32,6 @@ public class AuthenticationService {
 		if (userdetails !=null)
 		{
 			ArrayList<GrantedAuthority> newAuthorities = new ArrayList<>();
-			//newAuthorities.add(new SimpleGrantedAuthority("USER"));
 			springuser=new User(userdetails.getUserName(),userdetails.getPassword(),newAuthorities);
 		}
 		else

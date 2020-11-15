@@ -39,70 +39,99 @@ public class TaskController {
 	@RequestMapping(path="/addtask", method = RequestMethod.POST)
     public ResponseEntity<?> addTask(@RequestBody TaskView taskView) {
 		try {
-			User Loggedinuser=commonservice.Getloggedinuserdetails();
-			Boolean valid=commandMain.AddTask(taskView.getDescription(),Loggedinuser.getUserId());
-			if (valid)
-			{
-				 return ResponseEntity.ok().body("Successfully Added");
+				User Loggedinuser=commonservice.Getloggedinuserdetails();
+				Boolean valid=commandMain.AddTaskMain(taskView.getDescription(),Loggedinuser.getUserId());
+				if (valid)
+				{
+					 return ResponseEntity.ok().body("Successfully Added");
+				}
+				else {
+					
+					return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON).body("Error");
+				}
 			}
-			else {
-				
-				return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON).body("Error");
+		 catch (Exception ex) {
+	
+			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
+					.body("Error has been occured");
+	
 			}
-		}
-	 catch (Exception ex) {
-
-		return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
-				.body("Error has been occured");
-
-	}
- }
+	 }
 	
 	@RequestMapping(path="/updatetask", method = RequestMethod.POST)
     public ResponseEntity<?> updateTask(@RequestBody TaskUpdateView taskUpdateView) {
 		
-			User Loggedinuser=commonservice.Getloggedinuserdetails();
-			Boolean valid=commandMain.UpdateTask(taskUpdateView.getDescription(),taskUpdateView.getTaskId(),taskUpdateView.getIsCheck());
-			if (valid)
-			{
-				 return ResponseEntity.ok().body("Successfully Updated");
+		try {
+				User Loggedinuser=commonservice.Getloggedinuserdetails();
+				Boolean valid=commandMain.UpdateTaskMain(taskUpdateView.getDescription(),taskUpdateView.getTaskId(),taskUpdateView.getIsCheck());
+				if (valid) {
+				
+					 return ResponseEntity.ok().body("Successfully Updated");
+				}
+			
+				else {
+					
+					return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON).body("Error");
+				}
 			}
-		
-		
+		 catch (Exception ex) {
 	
-		return ResponseEntity.ok().body("Not Successfully Updated");
-}
+			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
+					.body("Error has been occured");
+	
+		}
+	}
 	
 	@RequestMapping(path="/removetask", method = RequestMethod.POST)
     public ResponseEntity<?> removeTask(@RequestBody TaskRemoveView taskRemoveView) {
 		
-			//User Loggedinuser=commonservice.Getloggedinuserdetails();
-			Boolean valid=commandMain.RemoveTask(taskRemoveView.getTaskId());
-			if (valid)
-			{
-				 return ResponseEntity.ok().body("Successfully Deleted");
+		try {
+			
+				//User Loggedinuser=commonservice.Getloggedinuserdetails();
+				Boolean valid=commandMain.RemoveTaskMain(taskRemoveView.getTaskId());
+				if (valid)
+				{
+					 return ResponseEntity.ok().body("Successfully Deleted");
+				}
+				else {
+					
+					return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON).body("Error");
+				}
 			}
-		
-		
+		 catch (Exception ex) {
 	
-		return ResponseEntity.ok().body("Not Successfully Deleted");
-}
+			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
+					.body("Error has been occured");
+	
+		}
+	}
 	
 	@RequestMapping(path="/displaytask", method = RequestMethod.GET)
     public ResponseEntity<?> displayTask() {
-		
-			//User Loggedinuser=commonservice.Getloggedinuserdetails();
-		List<Task> newTask=taskService.DisplayTask(1);
-		Iterator<Task> task_iterator=newTask.iterator();
-		List<TaskDisplayView> userTaskView = new ArrayList<TaskDisplayView>();
-		while(task_iterator.hasNext())
-		{
-			Task t=task_iterator.next();
-			TaskDisplayView taskDisplay=new TaskDisplayView();
-			taskDisplay.setDate(t.getDate());
-			taskDisplay.setDescription(t.getDescription());
-			userTaskView.add(taskDisplay);
-		}	
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(userTaskView);
-}
+	
+		try {	
+			
+			User Loggedinuser=commonservice.Getloggedinuserdetails();
+			List<Task> newTask=taskService.DisplayTask(Loggedinuser.getUserId());
+			Iterator<Task> task_iterator=newTask.iterator();
+			List<TaskDisplayView> userTaskView = new ArrayList<TaskDisplayView>();
+			while(task_iterator.hasNext())
+			{
+				Task t=task_iterator.next();
+				TaskDisplayView taskDisplay=new TaskDisplayView();
+				taskDisplay.setDate(t.getDate());
+				taskDisplay.setDescription(t.getDescription());
+				taskDisplay.setTaskId(t.getTaskId());
+				taskDisplay.setIsCheck(t.getCheck());
+				userTaskView.add(taskDisplay);
+			}	
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(userTaskView);
+		}
+		 catch (Exception ex) {
+	
+			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
+					.body("Error has been occured");
+	
+		}
+	}
 }
