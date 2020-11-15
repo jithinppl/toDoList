@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.todolist.security.JwtUtil;
 import com.todolist.service.AuthenticationService;
+import com.todolist.view.AuthenticateView;
 import com.todolist.view.UserSigninView;
 
 
@@ -46,7 +47,9 @@ public class AuthenticationController {
 		}
 		final UserDetails userDetails = userdetailsservice.loadUserByUsername(userSigninView.getUserName());
 		final String jwt = Jwttokenutil.GenerateToken(userDetails);
-		return ResponseEntity.ok(jwt);
+		AuthenticateView auth=new AuthenticateView();
+		auth.setToken(jwt);
+		return ResponseEntity.ok(auth);
 	}
 }
 
