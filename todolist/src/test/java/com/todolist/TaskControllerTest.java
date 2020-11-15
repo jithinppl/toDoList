@@ -57,8 +57,8 @@ class TaskControllerTest {
 	public void AddTaskTest() throws Exception {
 		
 		UserSigninView userinfo = new UserSigninView();
-		userinfo.setUserName("test");
-		userinfo.setPassword("pwd123");
+		userinfo.setUserName("test1");
+		userinfo.setPassword("pwd1");
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(userinfo);
@@ -91,8 +91,8 @@ class TaskControllerTest {
 	public void RemoveTaskTest() throws Exception {
 		
 		UserSigninView userinfo = new UserSigninView();
-		userinfo.setUserName("test");
-		userinfo.setPassword("pwd123");
+		userinfo.setUserName("test1");
+		userinfo.setPassword("pwd1");
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(userinfo);
@@ -108,7 +108,7 @@ class TaskControllerTest {
 		TaskRemoveView taskRemoveView = new TaskRemoveView();
 		taskRemoveView.setTaskId(1);
 		task.setTaskId(taskRemoveView.getTaskId());
-//		Mockito.when(mockedTaskRepository.delete(task));
+		//Mockito.when(mockedTaskRepository.delete(task));
 //		 Mockito.verify(mockedTaskRepository, Mockito.times(1)).delete(task);
 //
 //		ObjectMapper mapper1 = new ObjectMapper();

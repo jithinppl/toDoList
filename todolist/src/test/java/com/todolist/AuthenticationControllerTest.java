@@ -52,8 +52,8 @@ class AuthenticationControllerTest {
 	@Test
 	public void Logincontroltest() throws Exception {
 		UserSigninView userinfo = new UserSigninView();
-		userinfo.setUserName("test");
-		userinfo.setPassword("pwd123");
+		userinfo.setUserName("test1");
+		userinfo.setPassword("pwd1");
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(userinfo);
@@ -67,7 +67,7 @@ class AuthenticationControllerTest {
 	@Test
 	public void LogincontroltestFail() throws Exception {
 		UserSigninView userinfo = new UserSigninView();
-		userinfo.setUserName("test");
+		userinfo.setUserName("test1");
 		userinfo.setPassword("pwd");
 
 		ObjectMapper mapper = new ObjectMapper();
