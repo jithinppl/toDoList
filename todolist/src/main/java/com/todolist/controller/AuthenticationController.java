@@ -23,7 +23,7 @@ import com.todolist.view.UserSigninView;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="*")
 public class AuthenticationController {
 
 	@Autowired

@@ -15,7 +15,7 @@ import com.todolist.view.UserView;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="*")
 @RequestMapping(value="/api/user")
 public class UserController {
 	
