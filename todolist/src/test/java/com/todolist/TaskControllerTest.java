@@ -108,17 +108,17 @@ class TaskControllerTest {
 		TaskRemoveView taskRemoveView = new TaskRemoveView();
 		taskRemoveView.setTaskId(1);
 		task.setTaskId(taskRemoveView.getTaskId());
-		//Mockito.when(mockedTaskRepository.delete(task));
-//		 Mockito.verify(mockedTaskRepository, Mockito.times(1)).delete(task);
-//
-//		ObjectMapper mapper1 = new ObjectMapper();
-//		String jsonString1 = mapper1.writeValueAsString(taskRemoveView);
-//
-//		MvcResult finalresult=mvc.perform(post("/removetask").contentType(MediaType.APPLICATION_JSON).content(jsonString1).header("Authorization",Autherizationheader))
-//				.andExpect(status().isOk()).andReturn(); 
-//		
-//		String response= finalresult.getResponse().getContentAsString();
-//		assertEquals("Successfully Deleted",response);
+		
+		Mockito.doNothing().when(mockedTaskRepository).delete(Mockito.any(Task.class));
+
+		ObjectMapper mapper1 = new ObjectMapper();
+		String jsonString1 = mapper1.writeValueAsString(taskRemoveView);
+
+		MvcResult finalresult=mvc.perform(post("/removetask").contentType(MediaType.APPLICATION_JSON).content(jsonString1).header("Authorization",Autherizationheader))
+				.andExpect(status().isOk()).andReturn(); 
+		
+		String response= finalresult.getResponse().getContentAsString();
+		assertEquals("Successfully Deleted",response);
 		
 		
 
