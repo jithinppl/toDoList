@@ -1,0 +1,23 @@
+<div class="simple-login-container">
+    <h2>Login Form</h2>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <input type="text" class="form-control" [(ngModel)]="user.userName" placeholder="Username">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <input type="password" placeholder="Enter your Password" [(ngModel)]="user.password" class="form-control">
+            <div *ngIf="isinvalid" style="color: red;">
+            <small>{{ invaliddescription}}</small></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <input type="submit" class="btn btn-block btn-login" (click)="OnLoginClicked()"
+                placeholder="Enter your Password">
+        </div>
+       
+    </div>
+
+</div>

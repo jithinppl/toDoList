@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" [routerLink]="['']">To-Do List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div style="width: 90%;"></div>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item my-2 my-lg-0">
+                <a class="nav-link logout my-2 my-sm-0" (click)="Logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div *ngFor="let task of taskList | async">
+        <div class="custom-control custom-checkbox" style="margin-top: 5px;">
+            <ng-template [ngIf]="task.iseditable == true" [ngIfElse]="loading">
+                <div class="row">
+                    <div class="col-3">
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="task.description"
+                            id="inputSmall">
+                    </div>
+                    <div>
+                        <!-- <a class="aedit" (click)="onupdate(task)">update</a> -->
+                        <button type="button" class="btn btn-primary btn-sm aedit"
+                            (click)="onupdate(task)">update</button>
+                        <button type="button" class="btn btn-primary btn-sm aedit"
+                            (click)="oncancel(task)">cancel</button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #loading>
+                <input type="checkbox" class="custom-control-input" [id]="task.taskId" (click)="checkupdated(task)"
+                    [value]="task.taskId" [checked]="task.check">
+                <label class="custom-control-label" [for]="task.taskId">{{task.description}}</label>
+                <sub> Last updated on {{  task.date | date: 'medium'}} </sub>
+                <button type="button" class="btn btn-primary btn-sm aedit" (click)="onedit(task)">edit</button>
+                <button type="button" class="btn btn-danger btn-sm aedit" (click)="onremove(task)">remove</button>
+            </ng-template>
+
+        </div>
+    </div>
+    <div>
+        <ng-template [ngIf]="isadding == false" [ngIfElse]="adding">
+            <button type="button" class="btn btn-primary btn-sm" (click)="addnewtask()"> + Add</button>
+        </ng-template>
+        <ng-template #adding>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-3">
+                    <input class="form-control form-control-sm" type="text" [(ngModel)]="newdescription"
+                        id="inputSmall">
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary btn-sm aedit" (click)="oncreate()">create</button>
+                    <button type="button" class="btn btn-primary btn-sm aedit"
+                        (click)="oncreatecancel()">cancel</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+</div>
